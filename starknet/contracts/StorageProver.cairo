@@ -44,7 +44,8 @@ end
 
 @constructor
 func constructor{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
-    _fact_registry_address : felt, _L1_headers_store_address : felt
+    _fact_registry_address : felt, 
+    _L1_headers_store_address : felt
 ):
     fact_registry_address.write(_fact_registry_address)
     L1_headers_store_address.write(_L1_headers_store_address)
@@ -57,7 +58,7 @@ end
 func prove_balance_unchanged{
     syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
 }(user_address : felt) -> (bool : felt):
-    const BLOCK_HISTORY = 40  # Number of blocks to look back
+    const BLOCK_HISTORY = 40  # Number of blocks to look back - currently hard-coded but can be updated to be user input
 
     let (block_end) = get_latest_eth_block()
     let block_start = block_end - 40
@@ -109,24 +110,14 @@ func compare(a : felt, b : felt) -> (bool : felt):
 end
 
 
-# TODO - For receiving Ethereum recovery contracts
-@l1_handler
-func receive_L1_recovery_address{
-    syscall_ptr : felt*,
-    pedersen_ptr : HashBuiltin*,
-    range_check_ptr,
-}(address: felt):
-    
-    return ()
-end
-
-
 # Notify Ethereum recovery contract
 func notify_L1_recovery_contract{
     syscall_ptr : felt*,
     pedersen_ptr : HashBuiltin*,
     range_check_ptr,
 }(address: felt, l1_recovery_address: felt):
+    const MESSAGE_APPROVE = 1
+
     let (message_payload : felt*) = alloc()
     assert message_payload[0] = MESSAGE_APPROVE
     assert message_payload[1] = address
