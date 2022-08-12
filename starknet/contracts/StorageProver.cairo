@@ -24,19 +24,19 @@ end
 
 ## STATE
 
-# Deployed address of FactsRegistry contract on StarkNet - immutable value that can only be set at contract deployment
+# Deployed address of FactsRegistry contract on StarkNet - immutable value set on contract deployment
 @storage_var
 func fact_registry_address() -> (res : felt):
 end
 
-# Deployed address of StarkNet contract on L1HeadersStore - immutable value that can only be set at contract deployment
+# Deployed address of StarkNet contract on L1HeadersStore - immutable value set on contract deployment
 @storage_var
 func L1_headers_store_address() -> (res : felt):
 end
 
-# Mapping of L1 user addresses to L1 recovery contract addresses
+# Deployed address of L1 gateway contract - immutable value set on contract deployment
 @storage_var
-func recovery_addresses(user_address: felt) -> (recovery_address: felt):
+func L1_gateway_address() -> (res : felt):
 end
 
 
@@ -56,7 +56,7 @@ end
 @external
 func prove_balance_unchanged{
     syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
-}(user_address : felt, l1_recovery_address : felt) -> (bool : felt):
+}(user_address : felt) -> (bool : felt):
     const BLOCK_HISTORY = 40  # Number of blocks to look back
 
     let (block_end) = get_latest_eth_block()
@@ -66,8 +66,10 @@ func prove_balance_unchanged{
 
     let (equals) = compare(a=nonce_start, b=nonce_end)
 
+    let (L1_gateway_address) = L1_gateway_address.read()
+
     if equals == 1:
-        notify_L1_recovery_contract(l1_recovery_address)
+        notify_L1_recovery_contract(L1_gateway_address)
         return (1)
     end
 
