@@ -40,6 +40,17 @@ func L1_gateway_address() -> (res : felt):
 end
 
 
+## EVENTS
+
+@event
+func log_notify_L1_contract(user_address : felt):
+end
+
+@event
+func log_nonce(block: felt, address: felt, nonce: felt):
+end
+
+
 ## FUNCTIONS
 
 @constructor
@@ -97,10 +108,8 @@ func prove_balance_unchanged{
 
     let (equals) = compare(a=nonce_start, b=nonce_end)
 
-    let (gateway_addr) = L1_gateway_address.read()
-
     if equals == 1:
-        notify_L1_recovery_contract(gateway_addr)
+        notify_L1_recovery_contract(user_address)
         return (1)
     end
 
@@ -129,6 +138,8 @@ func get_nonce{
 
     let (nonce) = IFactsRegistry.get_verified_account_nonce(fact_registry_addr, address, block)
 
+    log_nonce.emit(block, address, nonce)
+
     return (nonce)
 end
 
@@ -145,7 +156,6 @@ end
 
 # Notify Ethereum recovery contract
 # Temporarily set as external function for testing purposes
-@external
 func notify_L1_recovery_contract{
     syscall_ptr : felt*,
     pedersen_ptr : HashBuiltin*,
@@ -164,6 +174,8 @@ func notify_L1_recovery_contract{
         payload_size=2,
         payload=message_payload,
     )
+
+    log_notify_L1_contract.emit(user_address)
 
     return ()
 end

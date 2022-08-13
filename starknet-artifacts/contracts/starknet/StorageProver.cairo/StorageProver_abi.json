@@ -1,5 +1,35 @@
 [
     {
+        "data": [
+            {
+                "name": "user_address",
+                "type": "felt"
+            }
+        ],
+        "keys": [],
+        "name": "log_notify_L1_contract",
+        "type": "event"
+    },
+    {
+        "data": [
+            {
+                "name": "block",
+                "type": "felt"
+            },
+            {
+                "name": "address",
+                "type": "felt"
+            },
+            {
+                "name": "nonce",
+                "type": "felt"
+            }
+        ],
+        "keys": [],
+        "name": "log_nonce",
+        "type": "event"
+    },
+    {
         "inputs": [
             {
                 "name": "_fact_registry_address",
@@ -68,17 +98,6 @@
                 "type": "felt"
             }
         ],
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "name": "user_address",
-                "type": "felt"
-            }
-        ],
-        "name": "notify_L1_recovery_contract",
-        "outputs": [],
         "type": "function"
     }
 ]
