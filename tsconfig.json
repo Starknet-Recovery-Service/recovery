@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "target": "es2020",
+        "module": "commonjs",
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "skipLibCheck": true
+    },
+    "exclude": ["cairo_venv", "node_modules"],
+    "include": ["./test", "./test/**/*", "./scripts", "./scripts/**/*"],
+    "files": ["./hardhat.config.ts"]
+}

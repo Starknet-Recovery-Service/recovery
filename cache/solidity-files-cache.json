@@ -1,0 +1,41 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "/Users/parkyeung/Documents/Programming/recovery/contracts/ethereum/TestContracts/TestGatewayContract.sol": {
+      "lastModificationDate": 1660398285753,
+      "contentHash": "17e391c2b54858ae0cbb77238594eec3",
+      "sourceName": "contracts/ethereum/TestContracts/TestGatewayContract.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.9"
+      ],
+      "artifacts": [
+        "IStarknetCore",
+        "TestGatewayContract"
+      ]
+    }
+  }
+}
