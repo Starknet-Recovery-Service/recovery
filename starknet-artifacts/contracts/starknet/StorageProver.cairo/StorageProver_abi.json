@@ -69,5 +69,16 @@
             }
         ],
         "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "name": "user_address",
+                "type": "felt"
+            }
+        ],
+        "name": "notify_L1_recovery_contract",
+        "outputs": [],
+        "type": "function"
     }
 ]

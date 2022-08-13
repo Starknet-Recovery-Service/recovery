@@ -70,6 +70,17 @@
                 }
             ],
             "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "name": "user_address",
+                    "type": "felt"
+                }
+            ],
+            "name": "notify_L1_recovery_contract",
+            "outputs": [],
+            "type": "function"
         }
     ],
     "entry_points_by_type": {
@@ -95,6 +106,10 @@
             {
                 "offset": "0x144",
                 "selector": "0x23b3b87b1b1a1b41ffdf00dec4d98751909f11516e65f6d20e9ada2f355f9b0"
+            },
+            {
+                "offset": "0x209",
+                "selector": "0x34401977623f7b60284d1adbe9c508e2cc568ca836a4bbdcbaa14b9e9c2f027"
             }
         ],
         "L1_HANDLER": []
@@ -626,6 +641,24 @@
             "0x800000000000010fffffffffffffffffffffffffffffffffffffffffffffe64",
             "0x48127ff17fff8000",
             "0x48127ff17fff8000",
+            "0x208b7fff7fff7ffe",
+            "0x482680017ffd8000",
+            "0x1",
+            "0x402a7ffd7ffc7fff",
+            "0x480280007ffb8000",
+            "0x480280017ffb8000",
+            "0x480280027ffb8000",
+            "0x480280007ffd8000",
+            "0x1104800180018000",
+            "0x800000000000010ffffffffffffffffffffffffffffffffffffffffffffffe5",
+            "0x40780017fff7fff",
+            "0x1",
+            "0x48127ffc7fff8000",
+            "0x48127ffc7fff8000",
+            "0x48127ffc7fff8000",
+            "0x480680017fff8000",
+            "0x0",
+            "0x48127ffb7fff8000",
             "0x208b7fff7fff7ffe"
         ],
         "debug_info": {
@@ -672,6 +705,11 @@
                 "autogen/starknet/external/get_fact_registry_address/65ba2bc0cdb07ebb752cdb99545c47de07e379b7ec115dbf9b85a97f7715f28f.cairo": "let ret_value = __wrapped_func{syscall_ptr=syscall_ptr, pedersen_ptr=pedersen_ptr, range_check_ptr=range_check_ptr}()\nlet (range_check_ptr, retdata_size, retdata) = get_fact_registry_address_encode_return(ret_value, range_check_ptr)\n",
                 "autogen/starknet/external/get_fact_registry_address/c7060df96cb0acca1380ae43bf758cab727bfdf73cb5d34a93e24a9742817fda.cairo": "let syscall_ptr = [cast([cast(fp + (-5), felt**)] + 0, felt**)]\n",
                 "autogen/starknet/external/get_fact_registry_address/e651458745e7cd218121c342e0915890767e2f59ddc2e315b8844ad0f47d582e.cairo": "let range_check_ptr = [cast([cast(fp + (-5), felt**)] + 2, felt*)]\n",
+                "autogen/starknet/external/notify_L1_recovery_contract/2287572e661d3e840bd3d0fa512b98c09494ab7ae464138b8bfffbf343456ec5.cairo": "let ret_value = __wrapped_func{syscall_ptr=syscall_ptr, pedersen_ptr=pedersen_ptr, range_check_ptr=range_check_ptr}(user_address=__calldata_arg_user_address,)\n%{ memory[ap] = segments.add() %}        # Allocate memory for return value.\ntempvar retdata : felt*\nlet retdata_size = 0\n",
+                "autogen/starknet/external/notify_L1_recovery_contract/424b26e79f70343cc02557f1fbd25745138efb26a3dc5c8b593ca765b73138b7.cairo": "let pedersen_ptr = [cast([cast(fp + (-5), felt**)] + 1, starkware.cairo.common.cairo_builtins.HashBuiltin**)]\n",
+                "autogen/starknet/external/notify_L1_recovery_contract/4ba2b119ceb30fe10f4cca3c9d73ef620c0fb5eece91b99a99d71217bba1001c.cairo": "return (syscall_ptr,pedersen_ptr,range_check_ptr,retdata_size,retdata)\n",
+                "autogen/starknet/external/notify_L1_recovery_contract/c7060df96cb0acca1380ae43bf758cab727bfdf73cb5d34a93e24a9742817fda.cairo": "let syscall_ptr = [cast([cast(fp + (-5), felt**)] + 0, felt**)]\n",
+                "autogen/starknet/external/notify_L1_recovery_contract/e651458745e7cd218121c342e0915890767e2f59ddc2e315b8844ad0f47d582e.cairo": "let range_check_ptr = [cast([cast(fp + (-5), felt**)] + 2, felt*)]\n",
                 "autogen/starknet/external/prove_balance_unchanged/424b26e79f70343cc02557f1fbd25745138efb26a3dc5c8b593ca765b73138b7.cairo": "let pedersen_ptr = [cast([cast(fp + (-5), felt**)] + 1, starkware.cairo.common.cairo_builtins.HashBuiltin**)]\n",
                 "autogen/starknet/external/prove_balance_unchanged/4ba2b119ceb30fe10f4cca3c9d73ef620c0fb5eece91b99a99d71217bba1001c.cairo": "return (syscall_ptr,pedersen_ptr,range_check_ptr,retdata_size,retdata)\n",
                 "autogen/starknet/external/prove_balance_unchanged/72af270aeff9424d32bf43b25e5c80a6151eeb891f213233483aba061e564fac.cairo": "let ret_value = __wrapped_func{syscall_ptr=syscall_ptr, pedersen_ptr=pedersen_ptr, range_check_ptr=range_check_ptr}(user_address=__calldata_arg_user_address,)\nlet (range_check_ptr, retdata_size, retdata) = prove_balance_unchanged_encode_return(ret_value, range_check_ptr)\n",
@@ -12400,7 +12438,7 @@
                                 "parent_location": [
                                     {
                                         "end_col": 24,
-                                        "end_line": 148,
+                                        "end_line": 150,
                                         "input_file": {
                                             "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
                                         },
@@ -12417,7 +12455,7 @@
                                             "While trying to retrieve the implicit argument 'syscall_ptr' in:"
                                         ],
                                         "start_col": 5,
-                                        "start_line": 148
+                                        "start_line": 150
                                     },
                                     "While expanding the reference 'syscall_ptr' in:"
                                 ],
@@ -12454,7 +12492,7 @@
                                 "parent_location": [
                                     {
                                         "end_col": 32,
-                                        "end_line": 149,
+                                        "end_line": 151,
                                         "input_file": {
                                             "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
                                         },
@@ -12471,7 +12509,7 @@
                                             "While trying to retrieve the implicit argument 'pedersen_ptr' in:"
                                         ],
                                         "start_col": 5,
-                                        "start_line": 149
+                                        "start_line": 151
                                     },
                                     "While expanding the reference 'pedersen_ptr' in:"
                                 ],
@@ -12508,7 +12546,7 @@
                                 "parent_location": [
                                     {
                                         "end_col": 20,
-                                        "end_line": 150,
+                                        "end_line": 152,
                                         "input_file": {
                                             "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
                                         },
@@ -12525,7 +12563,7 @@
                                             "While trying to retrieve the implicit argument 'range_check_ptr' in:"
                                         ],
                                         "start_col": 5,
-                                        "start_line": 150
+                                        "start_line": 152
                                     },
                                     "While expanding the reference 'range_check_ptr' in:"
                                 ],
@@ -15261,13 +15299,14 @@
                 "500": {
                     "accessible_scopes": [
                         "__main__",
+                        "__main__",
                         "__main__.notify_L1_recovery_contract"
                     ],
                     "flow_tracking_data": null,
                     "hints": [],
                     "inst": {
                         "end_col": 24,
-                        "end_line": 148,
+                        "end_line": 150,
                         "input_file": {
                             "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
                         },
@@ -15281,12 +15320,12 @@
                                 "parent_location": [
                                     {
                                         "end_col": 51,
-                                        "end_line": 154,
+                                        "end_line": 156,
                                         "input_file": {
                                             "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
                                         },
                                         "start_col": 26,
-                                        "start_line": 154
+                                        "start_line": 156
                                     },
                                     "While trying to retrieve the implicit argument 'syscall_ptr' in:"
                                 ],
@@ -15296,11 +15335,12 @@
                             "While expanding the reference 'syscall_ptr' in:"
                         ],
                         "start_col": 5,
-                        "start_line": 148
+                        "start_line": 150
                     }
                 },
                 "501": {
                     "accessible_scopes": [
+                        "__main__",
                         "__main__",
                         "__main__.notify_L1_recovery_contract"
                     ],
@@ -15308,7 +15348,7 @@
                     "hints": [],
                     "inst": {
                         "end_col": 32,
-                        "end_line": 149,
+                        "end_line": 151,
                         "input_file": {
                             "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
                         },
@@ -15322,12 +15362,12 @@
                                 "parent_location": [
                                     {
                                         "end_col": 51,
-                                        "end_line": 154,
+                                        "end_line": 156,
                                         "input_file": {
                                             "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
                                         },
                                         "start_col": 26,
-                                        "start_line": 154
+                                        "start_line": 156
                                     },
                                     "While trying to retrieve the implicit argument 'pedersen_ptr' in:"
                                 ],
@@ -15337,11 +15377,12 @@
                             "While expanding the reference 'pedersen_ptr' in:"
                         ],
                         "start_col": 5,
-                        "start_line": 149
+                        "start_line": 151
                     }
                 },
                 "502": {
                     "accessible_scopes": [
+                        "__main__",
                         "__main__",
                         "__main__.notify_L1_recovery_contract"
                     ],
@@ -15349,7 +15390,7 @@
                     "hints": [],
                     "inst": {
                         "end_col": 20,
-                        "end_line": 150,
+                        "end_line": 152,
                         "input_file": {
                             "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
                         },
@@ -15363,12 +15404,12 @@
                                 "parent_location": [
                                     {
                                         "end_col": 51,
-                                        "end_line": 154,
+                                        "end_line": 156,
                                         "input_file": {
                                             "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
                                         },
                                         "start_col": 26,
-                                        "start_line": 154
+                                        "start_line": 156
                                     },
                                     "While trying to retrieve the implicit argument 'range_check_ptr' in:"
                                 ],
@@ -15378,11 +15419,12 @@
                             "While expanding the reference 'range_check_ptr' in:"
                         ],
                         "start_col": 5,
-                        "start_line": 150
+                        "start_line": 152
                     }
                 },
                 "503": {
                     "accessible_scopes": [
+                        "__main__",
                         "__main__",
                         "__main__.notify_L1_recovery_contract"
                     ],
@@ -15390,16 +15432,17 @@
                     "hints": [],
                     "inst": {
                         "end_col": 51,
-                        "end_line": 154,
+                        "end_line": 156,
                         "input_file": {
                             "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
                         },
                         "start_col": 26,
-                        "start_line": 154
+                        "start_line": 156
                     }
                 },
                 "505": {
                     "accessible_scopes": [
+                        "__main__",
                         "__main__",
                         "__main__.notify_L1_recovery_contract"
                     ],
@@ -15407,33 +15450,17 @@
                     "hints": [],
                     "inst": {
                         "end_col": 44,
-                        "end_line": 156,
+                        "end_line": 158,
                         "input_file": {
                             "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
                         },
                         "start_col": 37,
-                        "start_line": 156
+                        "start_line": 158
                     }
                 },
                 "507": {
                     "accessible_scopes": [
                         "__main__",
-                        "__main__.notify_L1_recovery_contract"
-                    ],
-                    "flow_tracking_data": null,
-                    "hints": [],
-                    "inst": {
-                        "end_col": 48,
-                        "end_line": 157,
-                        "input_file": {
-                            "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
-                        },
-                        "start_col": 33,
-                        "start_line": 157
-                    }
-                },
-                "509": {
-                    "accessible_scopes": [
                         "__main__",
                         "__main__.notify_L1_recovery_contract"
                     ],
@@ -15441,16 +15468,35 @@
                     "hints": [],
                     "inst": {
                         "end_col": 48,
-                        "end_line": 157,
+                        "end_line": 159,
+                        "input_file": {
+                            "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
+                        },
+                        "start_col": 33,
+                        "start_line": 159
+                    }
+                },
+                "509": {
+                    "accessible_scopes": [
+                        "__main__",
+                        "__main__",
+                        "__main__.notify_L1_recovery_contract"
+                    ],
+                    "flow_tracking_data": null,
+                    "hints": [],
+                    "inst": {
+                        "end_col": 48,
+                        "end_line": 159,
                         "input_file": {
                             "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
                         },
                         "start_col": 5,
-                        "start_line": 157
+                        "start_line": 159
                     }
                 },
                 "510": {
                     "accessible_scopes": [
+                        "__main__",
                         "__main__",
                         "__main__.notify_L1_recovery_contract"
                     ],
@@ -15458,16 +15504,17 @@
                     "hints": [],
                     "inst": {
                         "end_col": 45,
-                        "end_line": 158,
+                        "end_line": 160,
                         "input_file": {
                             "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
                         },
                         "start_col": 5,
-                        "start_line": 158
+                        "start_line": 160
                     }
                 },
                 "511": {
                     "accessible_scopes": [
+                        "__main__",
                         "__main__",
                         "__main__.notify_L1_recovery_contract"
                     ],
@@ -15482,7 +15529,7 @@
                         "parent_location": [
                             {
                                 "end_col": 51,
-                                "end_line": 154,
+                                "end_line": 156,
                                 "input_file": {
                                     "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
                                 },
@@ -15496,12 +15543,12 @@
                                         "parent_location": [
                                             {
                                                 "end_col": 6,
-                                                "end_line": 164,
+                                                "end_line": 166,
                                                 "input_file": {
                                                     "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
                                                 },
                                                 "start_col": 5,
-                                                "start_line": 160
+                                                "start_line": 162
                                             },
                                             "While trying to retrieve the implicit argument 'syscall_ptr' in:"
                                         ],
@@ -15511,7 +15558,7 @@
                                     "While expanding the reference 'syscall_ptr' in:"
                                 ],
                                 "start_col": 26,
-                                "start_line": 154
+                                "start_line": 156
                             },
                             "While trying to update the implicit return value 'syscall_ptr' in:"
                         ],
@@ -15522,58 +15569,13 @@
                 "512": {
                     "accessible_scopes": [
                         "__main__",
+                        "__main__",
                         "__main__.notify_L1_recovery_contract"
                     ],
                     "flow_tracking_data": null,
                     "hints": [],
                     "inst": {
                         "end_col": 22,
-                        "end_line": 154,
-                        "input_file": {
-                            "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
-                        },
-                        "parent_location": [
-                            {
-                                "end_col": 32,
-                                "end_line": 161,
-                                "input_file": {
-                                    "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
-                                },
-                                "start_col": 20,
-                                "start_line": 161
-                            },
-                            "While expanding the reference 'gateway_addr' in:"
-                        ],
-                        "start_col": 10,
-                        "start_line": 154
-                    }
-                },
-                "513": {
-                    "accessible_scopes": [
-                        "__main__",
-                        "__main__.notify_L1_recovery_contract"
-                    ],
-                    "flow_tracking_data": null,
-                    "hints": [],
-                    "inst": {
-                        "end_col": 23,
-                        "end_line": 162,
-                        "input_file": {
-                            "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
-                        },
-                        "start_col": 22,
-                        "start_line": 162
-                    }
-                },
-                "515": {
-                    "accessible_scopes": [
-                        "__main__",
-                        "__main__.notify_L1_recovery_contract"
-                    ],
-                    "flow_tracking_data": null,
-                    "hints": [],
-                    "inst": {
-                        "end_col": 33,
                         "end_line": 156,
                         "input_file": {
                             "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
@@ -15585,17 +15587,66 @@
                                 "input_file": {
                                     "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
                                 },
-                                "start_col": 17,
+                                "start_col": 20,
                                 "start_line": 163
                             },
-                            "While expanding the reference 'message_payload' in:"
+                            "While expanding the reference 'gateway_addr' in:"
                         ],
                         "start_col": 10,
                         "start_line": 156
                     }
                 },
+                "513": {
+                    "accessible_scopes": [
+                        "__main__",
+                        "__main__",
+                        "__main__.notify_L1_recovery_contract"
+                    ],
+                    "flow_tracking_data": null,
+                    "hints": [],
+                    "inst": {
+                        "end_col": 23,
+                        "end_line": 164,
+                        "input_file": {
+                            "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
+                        },
+                        "start_col": 22,
+                        "start_line": 164
+                    }
+                },
+                "515": {
+                    "accessible_scopes": [
+                        "__main__",
+                        "__main__",
+                        "__main__.notify_L1_recovery_contract"
+                    ],
+                    "flow_tracking_data": null,
+                    "hints": [],
+                    "inst": {
+                        "end_col": 33,
+                        "end_line": 158,
+                        "input_file": {
+                            "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
+                        },
+                        "parent_location": [
+                            {
+                                "end_col": 32,
+                                "end_line": 165,
+                                "input_file": {
+                                    "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
+                                },
+                                "start_col": 17,
+                                "start_line": 165
+                            },
+                            "While expanding the reference 'message_payload' in:"
+                        ],
+                        "start_col": 10,
+                        "start_line": 158
+                    }
+                },
                 "516": {
                     "accessible_scopes": [
+                        "__main__",
                         "__main__",
                         "__main__.notify_L1_recovery_contract"
                     ],
@@ -15603,16 +15654,17 @@
                     "hints": [],
                     "inst": {
                         "end_col": 6,
-                        "end_line": 164,
+                        "end_line": 166,
                         "input_file": {
                             "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
                         },
                         "start_col": 5,
-                        "start_line": 160
+                        "start_line": 162
                     }
                 },
                 "518": {
                     "accessible_scopes": [
+                        "__main__",
                         "__main__",
                         "__main__.notify_L1_recovery_contract"
                     ],
@@ -15627,36 +15679,36 @@
                         "parent_location": [
                             {
                                 "end_col": 51,
-                                "end_line": 154,
+                                "end_line": 156,
                                 "input_file": {
                                     "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
                                 },
                                 "parent_location": [
                                     {
                                         "end_col": 32,
-                                        "end_line": 149,
+                                        "end_line": 151,
                                         "input_file": {
                                             "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
                                         },
                                         "parent_location": [
                                             {
                                                 "end_col": 14,
-                                                "end_line": 166,
+                                                "end_line": 168,
                                                 "input_file": {
                                                     "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
                                                 },
                                                 "start_col": 5,
-                                                "start_line": 166
+                                                "start_line": 168
                                             },
                                             "While trying to retrieve the implicit argument 'pedersen_ptr' in:"
                                         ],
                                         "start_col": 5,
-                                        "start_line": 149
+                                        "start_line": 151
                                     },
                                     "While expanding the reference 'pedersen_ptr' in:"
                                 ],
                                 "start_col": 26,
-                                "start_line": 154
+                                "start_line": 156
                             },
                             "While trying to update the implicit return value 'pedersen_ptr' in:"
                         ],
@@ -15666,6 +15718,7 @@
                 },
                 "519": {
                     "accessible_scopes": [
+                        "__main__",
                         "__main__",
                         "__main__.notify_L1_recovery_contract"
                     ],
@@ -15680,36 +15733,36 @@
                         "parent_location": [
                             {
                                 "end_col": 51,
-                                "end_line": 154,
+                                "end_line": 156,
                                 "input_file": {
                                     "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
                                 },
                                 "parent_location": [
                                     {
                                         "end_col": 20,
-                                        "end_line": 150,
+                                        "end_line": 152,
                                         "input_file": {
                                             "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
                                         },
                                         "parent_location": [
                                             {
                                                 "end_col": 14,
-                                                "end_line": 166,
+                                                "end_line": 168,
                                                 "input_file": {
                                                     "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
                                                 },
                                                 "start_col": 5,
-                                                "start_line": 166
+                                                "start_line": 168
                                             },
                                             "While trying to retrieve the implicit argument 'range_check_ptr' in:"
                                         ],
                                         "start_col": 5,
-                                        "start_line": 150
+                                        "start_line": 152
                                     },
                                     "While expanding the reference 'range_check_ptr' in:"
                                 ],
                                 "start_col": 26,
-                                "start_line": 154
+                                "start_line": 156
                             },
                             "While trying to update the implicit return value 'range_check_ptr' in:"
                         ],
@@ -15720,18 +15773,730 @@
                 "520": {
                     "accessible_scopes": [
                         "__main__",
+                        "__main__",
                         "__main__.notify_L1_recovery_contract"
                     ],
                     "flow_tracking_data": null,
                     "hints": [],
                     "inst": {
                         "end_col": 14,
-                        "end_line": 166,
+                        "end_line": 168,
                         "input_file": {
                             "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
                         },
                         "start_col": 5,
-                        "start_line": 166
+                        "start_line": 168
+                    }
+                },
+                "521": {
+                    "accessible_scopes": [
+                        "__main__",
+                        "__main__",
+                        "__wrappers__",
+                        "__wrappers__.notify_L1_recovery_contract"
+                    ],
+                    "flow_tracking_data": null,
+                    "hints": [],
+                    "inst": {
+                        "end_col": 40,
+                        "end_line": 2,
+                        "input_file": {
+                            "filename": "autogen/starknet/arg_processor/8a8f687d5b68591a1c023c4dd271a375f0d677e928ce3a9a8e3f67a2c7f76261.cairo"
+                        },
+                        "parent_location": [
+                            {
+                                "end_col": 21,
+                                "end_line": 153,
+                                "input_file": {
+                                    "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
+                                },
+                                "parent_location": [
+                                    {
+                                        "end_col": 45,
+                                        "end_line": 1,
+                                        "input_file": {
+                                            "filename": "autogen/starknet/arg_processor/5e1cc73f0b484f90bb02da164d88332b40c6f698801aa4d3c603dab22157e902.cairo"
+                                        },
+                                        "parent_location": [
+                                            {
+                                                "end_col": 33,
+                                                "end_line": 149,
+                                                "input_file": {
+                                                    "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
+                                                },
+                                                "parent_location": [
+                                                    {
+                                                        "end_col": 57,
+                                                        "end_line": 1,
+                                                        "input_file": {
+                                                            "filename": "autogen/starknet/arg_processor/1b562308a65653425ce06491fa4b4539466f3251a07e73e099d0afe86a48900e.cairo"
+                                                        },
+                                                        "parent_location": [
+                                                            {
+                                                                "end_col": 33,
+                                                                "end_line": 149,
+                                                                "input_file": {
+                                                                    "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
+                                                                },
+                                                                "start_col": 6,
+                                                                "start_line": 149
+                                                            },
+                                                            "While handling calldata of"
+                                                        ],
+                                                        "start_col": 35,
+                                                        "start_line": 1
+                                                    },
+                                                    "While expanding the reference '__calldata_actual_size' in:"
+                                                ],
+                                                "start_col": 6,
+                                                "start_line": 149
+                                            },
+                                            "While handling calldata of"
+                                        ],
+                                        "start_col": 31,
+                                        "start_line": 1
+                                    },
+                                    "While expanding the reference '__calldata_ptr' in:"
+                                ],
+                                "start_col": 3,
+                                "start_line": 153
+                            },
+                            "While handling calldata argument 'user_address'"
+                        ],
+                        "start_col": 22,
+                        "start_line": 2
+                    }
+                },
+                "523": {
+                    "accessible_scopes": [
+                        "__main__",
+                        "__main__",
+                        "__wrappers__",
+                        "__wrappers__.notify_L1_recovery_contract"
+                    ],
+                    "flow_tracking_data": null,
+                    "hints": [],
+                    "inst": {
+                        "end_col": 57,
+                        "end_line": 1,
+                        "input_file": {
+                            "filename": "autogen/starknet/arg_processor/1b562308a65653425ce06491fa4b4539466f3251a07e73e099d0afe86a48900e.cairo"
+                        },
+                        "parent_location": [
+                            {
+                                "end_col": 33,
+                                "end_line": 149,
+                                "input_file": {
+                                    "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
+                                },
+                                "start_col": 6,
+                                "start_line": 149
+                            },
+                            "While handling calldata of"
+                        ],
+                        "start_col": 1,
+                        "start_line": 1
+                    }
+                },
+                "524": {
+                    "accessible_scopes": [
+                        "__main__",
+                        "__main__",
+                        "__wrappers__",
+                        "__wrappers__.notify_L1_recovery_contract"
+                    ],
+                    "flow_tracking_data": null,
+                    "hints": [],
+                    "inst": {
+                        "end_col": 64,
+                        "end_line": 1,
+                        "input_file": {
+                            "filename": "autogen/starknet/external/notify_L1_recovery_contract/c7060df96cb0acca1380ae43bf758cab727bfdf73cb5d34a93e24a9742817fda.cairo"
+                        },
+                        "parent_location": [
+                            {
+                                "end_col": 24,
+                                "end_line": 150,
+                                "input_file": {
+                                    "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
+                                },
+                                "parent_location": [
+                                    {
+                                        "end_col": 55,
+                                        "end_line": 1,
+                                        "input_file": {
+                                            "filename": "autogen/starknet/external/notify_L1_recovery_contract/2287572e661d3e840bd3d0fa512b98c09494ab7ae464138b8bfffbf343456ec5.cairo"
+                                        },
+                                        "parent_location": [
+                                            {
+                                                "end_col": 33,
+                                                "end_line": 149,
+                                                "input_file": {
+                                                    "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
+                                                },
+                                                "start_col": 6,
+                                                "start_line": 149
+                                            },
+                                            "While constructing the external wrapper for:"
+                                        ],
+                                        "start_col": 44,
+                                        "start_line": 1
+                                    },
+                                    "While expanding the reference 'syscall_ptr' in:"
+                                ],
+                                "start_col": 5,
+                                "start_line": 150
+                            },
+                            "While constructing the external wrapper for:"
+                        ],
+                        "start_col": 19,
+                        "start_line": 1
+                    }
+                },
+                "525": {
+                    "accessible_scopes": [
+                        "__main__",
+                        "__main__",
+                        "__wrappers__",
+                        "__wrappers__.notify_L1_recovery_contract"
+                    ],
+                    "flow_tracking_data": null,
+                    "hints": [],
+                    "inst": {
+                        "end_col": 110,
+                        "end_line": 1,
+                        "input_file": {
+                            "filename": "autogen/starknet/external/notify_L1_recovery_contract/424b26e79f70343cc02557f1fbd25745138efb26a3dc5c8b593ca765b73138b7.cairo"
+                        },
+                        "parent_location": [
+                            {
+                                "end_col": 32,
+                                "end_line": 151,
+                                "input_file": {
+                                    "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
+                                },
+                                "parent_location": [
+                                    {
+                                        "end_col": 82,
+                                        "end_line": 1,
+                                        "input_file": {
+                                            "filename": "autogen/starknet/external/notify_L1_recovery_contract/2287572e661d3e840bd3d0fa512b98c09494ab7ae464138b8bfffbf343456ec5.cairo"
+                                        },
+                                        "parent_location": [
+                                            {
+                                                "end_col": 33,
+                                                "end_line": 149,
+                                                "input_file": {
+                                                    "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
+                                                },
+                                                "start_col": 6,
+                                                "start_line": 149
+                                            },
+                                            "While constructing the external wrapper for:"
+                                        ],
+                                        "start_col": 70,
+                                        "start_line": 1
+                                    },
+                                    "While expanding the reference 'pedersen_ptr' in:"
+                                ],
+                                "start_col": 5,
+                                "start_line": 151
+                            },
+                            "While constructing the external wrapper for:"
+                        ],
+                        "start_col": 20,
+                        "start_line": 1
+                    }
+                },
+                "526": {
+                    "accessible_scopes": [
+                        "__main__",
+                        "__main__",
+                        "__wrappers__",
+                        "__wrappers__.notify_L1_recovery_contract"
+                    ],
+                    "flow_tracking_data": null,
+                    "hints": [],
+                    "inst": {
+                        "end_col": 67,
+                        "end_line": 1,
+                        "input_file": {
+                            "filename": "autogen/starknet/external/notify_L1_recovery_contract/e651458745e7cd218121c342e0915890767e2f59ddc2e315b8844ad0f47d582e.cairo"
+                        },
+                        "parent_location": [
+                            {
+                                "end_col": 20,
+                                "end_line": 152,
+                                "input_file": {
+                                    "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
+                                },
+                                "parent_location": [
+                                    {
+                                        "end_col": 115,
+                                        "end_line": 1,
+                                        "input_file": {
+                                            "filename": "autogen/starknet/external/notify_L1_recovery_contract/2287572e661d3e840bd3d0fa512b98c09494ab7ae464138b8bfffbf343456ec5.cairo"
+                                        },
+                                        "parent_location": [
+                                            {
+                                                "end_col": 33,
+                                                "end_line": 149,
+                                                "input_file": {
+                                                    "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
+                                                },
+                                                "start_col": 6,
+                                                "start_line": 149
+                                            },
+                                            "While constructing the external wrapper for:"
+                                        ],
+                                        "start_col": 100,
+                                        "start_line": 1
+                                    },
+                                    "While expanding the reference 'range_check_ptr' in:"
+                                ],
+                                "start_col": 5,
+                                "start_line": 152
+                            },
+                            "While constructing the external wrapper for:"
+                        ],
+                        "start_col": 23,
+                        "start_line": 1
+                    }
+                },
+                "527": {
+                    "accessible_scopes": [
+                        "__main__",
+                        "__main__",
+                        "__wrappers__",
+                        "__wrappers__.notify_L1_recovery_contract"
+                    ],
+                    "flow_tracking_data": null,
+                    "hints": [],
+                    "inst": {
+                        "end_col": 51,
+                        "end_line": 1,
+                        "input_file": {
+                            "filename": "autogen/starknet/arg_processor/8a8f687d5b68591a1c023c4dd271a375f0d677e928ce3a9a8e3f67a2c7f76261.cairo"
+                        },
+                        "parent_location": [
+                            {
+                                "end_col": 21,
+                                "end_line": 153,
+                                "input_file": {
+                                    "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
+                                },
+                                "parent_location": [
+                                    {
+                                        "end_col": 157,
+                                        "end_line": 1,
+                                        "input_file": {
+                                            "filename": "autogen/starknet/external/notify_L1_recovery_contract/2287572e661d3e840bd3d0fa512b98c09494ab7ae464138b8bfffbf343456ec5.cairo"
+                                        },
+                                        "parent_location": [
+                                            {
+                                                "end_col": 33,
+                                                "end_line": 149,
+                                                "input_file": {
+                                                    "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
+                                                },
+                                                "start_col": 6,
+                                                "start_line": 149
+                                            },
+                                            "While constructing the external wrapper for:"
+                                        ],
+                                        "start_col": 130,
+                                        "start_line": 1
+                                    },
+                                    "While expanding the reference '__calldata_arg_user_address' in:"
+                                ],
+                                "start_col": 3,
+                                "start_line": 153
+                            },
+                            "While handling calldata argument 'user_address'"
+                        ],
+                        "start_col": 35,
+                        "start_line": 1
+                    }
+                },
+                "528": {
+                    "accessible_scopes": [
+                        "__main__",
+                        "__main__",
+                        "__wrappers__",
+                        "__wrappers__.notify_L1_recovery_contract"
+                    ],
+                    "flow_tracking_data": null,
+                    "hints": [],
+                    "inst": {
+                        "end_col": 33,
+                        "end_line": 149,
+                        "input_file": {
+                            "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
+                        },
+                        "start_col": 6,
+                        "start_line": 149
+                    }
+                },
+                "530": {
+                    "accessible_scopes": [
+                        "__main__",
+                        "__main__",
+                        "__wrappers__",
+                        "__wrappers__.notify_L1_recovery_contract"
+                    ],
+                    "flow_tracking_data": null,
+                    "hints": [
+                        {
+                            "location": {
+                                "end_col": 34,
+                                "end_line": 2,
+                                "input_file": {
+                                    "filename": "autogen/starknet/external/notify_L1_recovery_contract/2287572e661d3e840bd3d0fa512b98c09494ab7ae464138b8bfffbf343456ec5.cairo"
+                                },
+                                "parent_location": [
+                                    {
+                                        "end_col": 33,
+                                        "end_line": 149,
+                                        "input_file": {
+                                            "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
+                                        },
+                                        "start_col": 6,
+                                        "start_line": 149
+                                    },
+                                    "While constructing the external wrapper for:"
+                                ],
+                                "start_col": 1,
+                                "start_line": 2
+                            },
+                            "n_prefix_newlines": 0
+                        }
+                    ],
+                    "inst": {
+                        "end_col": 24,
+                        "end_line": 3,
+                        "input_file": {
+                            "filename": "autogen/starknet/external/notify_L1_recovery_contract/2287572e661d3e840bd3d0fa512b98c09494ab7ae464138b8bfffbf343456ec5.cairo"
+                        },
+                        "parent_location": [
+                            {
+                                "end_col": 33,
+                                "end_line": 149,
+                                "input_file": {
+                                    "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
+                                },
+                                "start_col": 6,
+                                "start_line": 149
+                            },
+                            "While constructing the external wrapper for:"
+                        ],
+                        "start_col": 1,
+                        "start_line": 3
+                    }
+                },
+                "532": {
+                    "accessible_scopes": [
+                        "__main__",
+                        "__main__",
+                        "__wrappers__",
+                        "__wrappers__.notify_L1_recovery_contract"
+                    ],
+                    "flow_tracking_data": null,
+                    "hints": [],
+                    "inst": {
+                        "end_col": 55,
+                        "end_line": 1,
+                        "input_file": {
+                            "filename": "autogen/starknet/external/notify_L1_recovery_contract/2287572e661d3e840bd3d0fa512b98c09494ab7ae464138b8bfffbf343456ec5.cairo"
+                        },
+                        "parent_location": [
+                            {
+                                "end_col": 33,
+                                "end_line": 149,
+                                "input_file": {
+                                    "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
+                                },
+                                "parent_location": [
+                                    {
+                                        "end_col": 20,
+                                        "end_line": 1,
+                                        "input_file": {
+                                            "filename": "autogen/starknet/external/notify_L1_recovery_contract/4ba2b119ceb30fe10f4cca3c9d73ef620c0fb5eece91b99a99d71217bba1001c.cairo"
+                                        },
+                                        "parent_location": [
+                                            {
+                                                "end_col": 33,
+                                                "end_line": 149,
+                                                "input_file": {
+                                                    "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
+                                                },
+                                                "start_col": 6,
+                                                "start_line": 149
+                                            },
+                                            "While constructing the external wrapper for:"
+                                        ],
+                                        "start_col": 9,
+                                        "start_line": 1
+                                    },
+                                    "While expanding the reference 'syscall_ptr' in:"
+                                ],
+                                "start_col": 6,
+                                "start_line": 149
+                            },
+                            "While constructing the external wrapper for:"
+                        ],
+                        "start_col": 44,
+                        "start_line": 1
+                    }
+                },
+                "533": {
+                    "accessible_scopes": [
+                        "__main__",
+                        "__main__",
+                        "__wrappers__",
+                        "__wrappers__.notify_L1_recovery_contract"
+                    ],
+                    "flow_tracking_data": null,
+                    "hints": [],
+                    "inst": {
+                        "end_col": 82,
+                        "end_line": 1,
+                        "input_file": {
+                            "filename": "autogen/starknet/external/notify_L1_recovery_contract/2287572e661d3e840bd3d0fa512b98c09494ab7ae464138b8bfffbf343456ec5.cairo"
+                        },
+                        "parent_location": [
+                            {
+                                "end_col": 33,
+                                "end_line": 149,
+                                "input_file": {
+                                    "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
+                                },
+                                "parent_location": [
+                                    {
+                                        "end_col": 33,
+                                        "end_line": 1,
+                                        "input_file": {
+                                            "filename": "autogen/starknet/external/notify_L1_recovery_contract/4ba2b119ceb30fe10f4cca3c9d73ef620c0fb5eece91b99a99d71217bba1001c.cairo"
+                                        },
+                                        "parent_location": [
+                                            {
+                                                "end_col": 33,
+                                                "end_line": 149,
+                                                "input_file": {
+                                                    "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
+                                                },
+                                                "start_col": 6,
+                                                "start_line": 149
+                                            },
+                                            "While constructing the external wrapper for:"
+                                        ],
+                                        "start_col": 21,
+                                        "start_line": 1
+                                    },
+                                    "While expanding the reference 'pedersen_ptr' in:"
+                                ],
+                                "start_col": 6,
+                                "start_line": 149
+                            },
+                            "While constructing the external wrapper for:"
+                        ],
+                        "start_col": 70,
+                        "start_line": 1
+                    }
+                },
+                "534": {
+                    "accessible_scopes": [
+                        "__main__",
+                        "__main__",
+                        "__wrappers__",
+                        "__wrappers__.notify_L1_recovery_contract"
+                    ],
+                    "flow_tracking_data": null,
+                    "hints": [],
+                    "inst": {
+                        "end_col": 115,
+                        "end_line": 1,
+                        "input_file": {
+                            "filename": "autogen/starknet/external/notify_L1_recovery_contract/2287572e661d3e840bd3d0fa512b98c09494ab7ae464138b8bfffbf343456ec5.cairo"
+                        },
+                        "parent_location": [
+                            {
+                                "end_col": 33,
+                                "end_line": 149,
+                                "input_file": {
+                                    "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
+                                },
+                                "parent_location": [
+                                    {
+                                        "end_col": 49,
+                                        "end_line": 1,
+                                        "input_file": {
+                                            "filename": "autogen/starknet/external/notify_L1_recovery_contract/4ba2b119ceb30fe10f4cca3c9d73ef620c0fb5eece91b99a99d71217bba1001c.cairo"
+                                        },
+                                        "parent_location": [
+                                            {
+                                                "end_col": 33,
+                                                "end_line": 149,
+                                                "input_file": {
+                                                    "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
+                                                },
+                                                "start_col": 6,
+                                                "start_line": 149
+                                            },
+                                            "While constructing the external wrapper for:"
+                                        ],
+                                        "start_col": 34,
+                                        "start_line": 1
+                                    },
+                                    "While expanding the reference 'range_check_ptr' in:"
+                                ],
+                                "start_col": 6,
+                                "start_line": 149
+                            },
+                            "While constructing the external wrapper for:"
+                        ],
+                        "start_col": 100,
+                        "start_line": 1
+                    }
+                },
+                "535": {
+                    "accessible_scopes": [
+                        "__main__",
+                        "__main__",
+                        "__wrappers__",
+                        "__wrappers__.notify_L1_recovery_contract"
+                    ],
+                    "flow_tracking_data": null,
+                    "hints": [],
+                    "inst": {
+                        "end_col": 21,
+                        "end_line": 4,
+                        "input_file": {
+                            "filename": "autogen/starknet/external/notify_L1_recovery_contract/2287572e661d3e840bd3d0fa512b98c09494ab7ae464138b8bfffbf343456ec5.cairo"
+                        },
+                        "parent_location": [
+                            {
+                                "end_col": 33,
+                                "end_line": 149,
+                                "input_file": {
+                                    "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
+                                },
+                                "parent_location": [
+                                    {
+                                        "end_col": 62,
+                                        "end_line": 1,
+                                        "input_file": {
+                                            "filename": "autogen/starknet/external/notify_L1_recovery_contract/4ba2b119ceb30fe10f4cca3c9d73ef620c0fb5eece91b99a99d71217bba1001c.cairo"
+                                        },
+                                        "parent_location": [
+                                            {
+                                                "end_col": 33,
+                                                "end_line": 149,
+                                                "input_file": {
+                                                    "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
+                                                },
+                                                "start_col": 6,
+                                                "start_line": 149
+                                            },
+                                            "While constructing the external wrapper for:"
+                                        ],
+                                        "start_col": 50,
+                                        "start_line": 1
+                                    },
+                                    "While expanding the reference 'retdata_size' in:"
+                                ],
+                                "start_col": 6,
+                                "start_line": 149
+                            },
+                            "While constructing the external wrapper for:"
+                        ],
+                        "start_col": 20,
+                        "start_line": 4
+                    }
+                },
+                "537": {
+                    "accessible_scopes": [
+                        "__main__",
+                        "__main__",
+                        "__wrappers__",
+                        "__wrappers__.notify_L1_recovery_contract"
+                    ],
+                    "flow_tracking_data": null,
+                    "hints": [],
+                    "inst": {
+                        "end_col": 16,
+                        "end_line": 3,
+                        "input_file": {
+                            "filename": "autogen/starknet/external/notify_L1_recovery_contract/2287572e661d3e840bd3d0fa512b98c09494ab7ae464138b8bfffbf343456ec5.cairo"
+                        },
+                        "parent_location": [
+                            {
+                                "end_col": 33,
+                                "end_line": 149,
+                                "input_file": {
+                                    "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
+                                },
+                                "parent_location": [
+                                    {
+                                        "end_col": 70,
+                                        "end_line": 1,
+                                        "input_file": {
+                                            "filename": "autogen/starknet/external/notify_L1_recovery_contract/4ba2b119ceb30fe10f4cca3c9d73ef620c0fb5eece91b99a99d71217bba1001c.cairo"
+                                        },
+                                        "parent_location": [
+                                            {
+                                                "end_col": 33,
+                                                "end_line": 149,
+                                                "input_file": {
+                                                    "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
+                                                },
+                                                "start_col": 6,
+                                                "start_line": 149
+                                            },
+                                            "While constructing the external wrapper for:"
+                                        ],
+                                        "start_col": 63,
+                                        "start_line": 1
+                                    },
+                                    "While expanding the reference 'retdata' in:"
+                                ],
+                                "start_col": 6,
+                                "start_line": 149
+                            },
+                            "While constructing the external wrapper for:"
+                        ],
+                        "start_col": 9,
+                        "start_line": 3
+                    }
+                },
+                "538": {
+                    "accessible_scopes": [
+                        "__main__",
+                        "__main__",
+                        "__wrappers__",
+                        "__wrappers__.notify_L1_recovery_contract"
+                    ],
+                    "flow_tracking_data": null,
+                    "hints": [],
+                    "inst": {
+                        "end_col": 71,
+                        "end_line": 1,
+                        "input_file": {
+                            "filename": "autogen/starknet/external/notify_L1_recovery_contract/4ba2b119ceb30fe10f4cca3c9d73ef620c0fb5eece91b99a99d71217bba1001c.cairo"
+                        },
+                        "parent_location": [
+                            {
+                                "end_col": 33,
+                                "end_line": 149,
+                                "input_file": {
+                                    "filename": "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo"
+                                },
+                                "start_col": 6,
+                                "start_line": 149
+                            },
+                            "While constructing the external wrapper for:"
+                        ],
+                        "start_col": 1,
+                        "start_line": 1
                     }
                 }
             }
@@ -15967,6 +16732,24 @@
                         "ap_tracking": {
                             "group": 38,
                             "offset": 0
+                        },
+                        "reference_ids": {}
+                    }
+                }
+            ],
+            "530": [
+                {
+                    "accessible_scopes": [
+                        "__main__",
+                        "__main__",
+                        "__wrappers__",
+                        "__wrappers__.notify_L1_recovery_contract"
+                    ],
+                    "code": "memory[ap] = segments.add()",
+                    "flow_tracking_data": {
+                        "ap_tracking": {
+                            "group": 45,
+                            "offset": 44
                         },
                         "reference_ids": {}
                     }
@@ -16925,7 +17708,9 @@
                 "value": 0
             },
             "__main__.notify_L1_recovery_contract": {
-                "decorators": [],
+                "decorators": [
+                    "external"
+                ],
                 "pc": 500,
                 "type": "function"
             },
@@ -17263,6 +18048,41 @@
                 "value": 1
             },
             "__wrappers__.get_fact_registry_address_encode_return.memcpy": {
+                "destination": "starkware.cairo.common.memcpy.memcpy",
+                "type": "alias"
+            },
+            "__wrappers__.notify_L1_recovery_contract": {
+                "decorators": [
+                    "external"
+                ],
+                "pc": 521,
+                "type": "function"
+            },
+            "__wrappers__.notify_L1_recovery_contract.Args": {
+                "full_name": "__wrappers__.notify_L1_recovery_contract.Args",
+                "members": {},
+                "size": 0,
+                "type": "struct"
+            },
+            "__wrappers__.notify_L1_recovery_contract.ImplicitArgs": {
+                "full_name": "__wrappers__.notify_L1_recovery_contract.ImplicitArgs",
+                "members": {},
+                "size": 0,
+                "type": "struct"
+            },
+            "__wrappers__.notify_L1_recovery_contract.Return": {
+                "cairo_type": "(syscall_ptr : felt*, pedersen_ptr : starkware.cairo.common.cairo_builtins.HashBuiltin*, range_check_ptr : felt, size : felt, retdata : felt*)",
+                "type": "type_definition"
+            },
+            "__wrappers__.notify_L1_recovery_contract.SIZEOF_LOCALS": {
+                "type": "const",
+                "value": 0
+            },
+            "__wrappers__.notify_L1_recovery_contract.__wrapped_func": {
+                "destination": "__main__.notify_L1_recovery_contract",
+                "type": "alias"
+            },
+            "__wrappers__.notify_L1_recovery_contract_encode_return.memcpy": {
                 "destination": "starkware.cairo.common.memcpy.memcpy",
                 "type": "alias"
             },

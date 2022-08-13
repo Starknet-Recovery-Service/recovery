@@ -144,6 +144,8 @@ end
 
 
 # Notify Ethereum recovery contract
+# Temporarily set as external function for testing purposes
+@external
 func notify_L1_recovery_contract{
     syscall_ptr : felt*,
     pedersen_ptr : HashBuiltin*,
