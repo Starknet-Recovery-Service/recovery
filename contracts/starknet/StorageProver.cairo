@@ -148,14 +148,14 @@ func notify_L1_recovery_contract{
     syscall_ptr : felt*,
     pedersen_ptr : HashBuiltin*,
     range_check_ptr,
-}(address: felt):
+}(user_address: felt):
     const MESSAGE_APPROVE = 1
 
     let (gateway_addr) = L1_gateway_address.read()
 
     let (message_payload : felt*) = alloc()
     assert message_payload[0] = MESSAGE_APPROVE
-    assert message_payload[1] = address
+    assert message_payload[1] = user_address
 
     send_message_to_l1(
         to_address=gateway_addr,
