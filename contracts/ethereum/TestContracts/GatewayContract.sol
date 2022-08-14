@@ -69,7 +69,8 @@ contract GatewayContract {
         // L2StorageProverAddress is passed in as an input but we should eventually hardcode it into the contract
         starknetCore.consumeMessageFromL2(L2StorageProverAddress, payload);
 
-        address _recoveryContractAddress = eoaToRecoveryContract[address(uint160(uint256(userAddress)))];
+        address conversion = address(uint160(userAddress));
+        address _recoveryContractAddress = eoaToRecoveryContract[conversion];
         RecoveryContract(_recoveryContractAddress).activateRecovery(blocks);
     }
 
