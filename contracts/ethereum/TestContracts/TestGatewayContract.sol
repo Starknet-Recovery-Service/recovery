@@ -34,9 +34,10 @@ contract RecoveryContract {
         }
     }
 
-    function activateRecovery() external {
+    function activateRecovery(uint256 blocks) external {
         require(msg.sender == gatewayContract, "Not gateway");
         require(!isActive, "Already active");
+        require(blocks >= minBlocks, "Inactivity too short");
         isActive = true;
         emit ActiveRecovery(address(this), recipient, block.timestamp);
     }
@@ -47,10 +48,7 @@ contract RecoveryContract {
 contract GatewayContract {
     // The StarkNet core contract
     IStarknetCore starknetCore;
-
-    mapping(uint256 => bool) public withdrawAllowances;
     mapping(address => address) public eoaToRecoveryContract;
-
     uint256 constant MESSAGE_APPROVE = 1;
 
     constructor(IStarknetCore _starknetCore) {
@@ -59,21 +57,20 @@ contract GatewayContract {
 
     function receiveFromStorageProver(
         uint256 userAddress,
+        uint256 blocks,
         uint256 L2StorageProverAddress
     ) external {
         // Construct the withdrawal message's payload.
         uint256[] memory payload = new uint256[](2);
         payload[0] = MESSAGE_APPROVE;
         payload[1] = userAddress;
+        payload[2] = blocks;
 
         // L2StorageProverAddress is passed in as an input but we should eventually hardcode it into the contract
         starknetCore.consumeMessageFromL2(L2StorageProverAddress, payload);
 
-        withdrawAllowances[userAddress] = true;
-
-        //TODO: figure out the conversion between uint to address
-        // address _recoveryContractAddress = eoaToRecoveryContract[userAddress];
-        // RecoveryContract(_recoveryContractAddress).activateRecovery();
+        address _recoveryContractAddress = eoaToRecoveryContract[address(uint160(uint256(userAddress)))];
+        RecoveryContract(_recoveryContractAddress).activateRecovery(blocks);
     }
 
     function deployRecoveryContract(address recipient, uint256 minBlocks) external {
