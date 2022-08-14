@@ -11,7 +11,7 @@ async function main() {
     console.log("Account balance:", (await deployer.getBalance()).toString())
 
     const starknetCoreContractAddress = "0xde29d060D45901Fb19ED6C6e959EB22d8626708e"
-    const gatewayContract = await ethers.getContractFactory("TestGatewayContract")
+    const gatewayContract = await ethers.getContractFactory("GatewayContract")
     const gateway = await gatewayContract.deploy(starknetCoreContractAddress)
 
     console.log("TestGatewayContract address:", gateway.address)
