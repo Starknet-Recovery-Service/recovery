@@ -2,6 +2,8 @@
 
 pragma solidity ^0.8.9;
 
+import "./IERC20.sol";
+
 interface IStarknetCore {
     // Consumes a message that was sent from an L2 contract. Returns the hash of the message
     function consumeMessageFromL2(
@@ -10,11 +12,44 @@ interface IStarknetCore {
     ) external returns (bytes32);
 }
 
-contract TestGatewayContract {
+contract RecoveryContract {
+    address public recipient;
+    address public gatewayContract;
+    uint256 public minBlocks;
+    bool public isActive;
+
+    constructor(address _recipient, uint256 _minBlocks, address _gatewayContract) {
+        recipient = _recipient;
+        minBlocks = _minBlocks;
+        gatewayContract = _gatewayContract;
+        isActive = false;
+    }
+
+    function claimAssets(address[] calldata erc20contracts, address to) external {
+        require(msg.sender == recipient, "Only recipient");
+        require(isActive == true, "Not active");
+        for (uint256 i = 0 ; i < erc20contracts.length; i++) {
+            uint256 balance = IERC20(erc20contracts[i]).balanceOf(address(this));
+            IERC20(erc20contracts[i]).transfer(to, balance);
+        }
+    }
+
+    function activateRecovery() external {
+        require(msg.sender == gatewayContract, "Not gateway");
+        require(!isActive, "Already active");
+        isActive = true;
+        emit ActiveRecovery(address(this), recipient, block.timestamp);
+    }
+
+    event ActiveRecovery(address contractAddress, address recipient, uint256 activationTime);
+}
+
+contract GatewayContract {
     // The StarkNet core contract
     IStarknetCore starknetCore;
 
     mapping(uint256 => bool) public withdrawAllowances;
+    mapping(address => address) public eoaToRecoveryContract;
 
     uint256 constant MESSAGE_APPROVE = 1;
 
@@ -35,5 +70,18 @@ contract TestGatewayContract {
         starknetCore.consumeMessageFromL2(L2StorageProverAddress, payload);
 
         withdrawAllowances[userAddress] = true;
+
+        //TODO: figure out the conversion between uint to address
+        // address _recoveryContractAddress = eoaToRecoveryContract[userAddress];
+        // RecoveryContract(_recoveryContractAddress).activateRecovery();
     }
+
+    function deployRecoveryContract(address recipient, uint256 minBlocks) external {
+        require(eoaToRecoveryContract[msg.sender] == address(0x0), "Recovery contract exists");
+        address _recoveryContractAddress = address(new RecoveryContract(recipient, minBlocks, address(this)));
+        eoaToRecoveryContract[msg.sender] = _recoveryContractAddress;
+        emit NewRecoveryContract(msg.sender, _recoveryContractAddress, block.timestamp, minBlocks);
+    }
+
+    event NewRecoveryContract(address EOA, address recoveryContract, uint256 creationDate, uint256 minBlocks);
 }
