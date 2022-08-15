@@ -18,18 +18,26 @@ contract RecoveryContract {
     uint256 public minBlocks;
     bool public isActive;
 
-    constructor(address _recipient, uint256 _minBlocks, address _gatewayContract) {
+    constructor(
+        address _recipient,
+        uint256 _minBlocks,
+        address _gatewayContract
+    ) {
         recipient = _recipient;
         minBlocks = _minBlocks;
         gatewayContract = _gatewayContract;
         isActive = false;
     }
 
-    function claimAssets(address[] calldata erc20contracts, address to) external {
+    function claimAssets(address[] calldata erc20contracts, address to)
+        external
+    {
         require(msg.sender == recipient, "Only recipient");
         require(isActive == true, "Not active");
-        for (uint256 i = 0 ; i < erc20contracts.length; i++) {
-            uint256 balance = IERC20(erc20contracts[i]).balanceOf(address(this));
+        for (uint256 i = 0; i < erc20contracts.length; i++) {
+            uint256 balance = IERC20(erc20contracts[i]).balanceOf(
+                address(this)
+            );
             IERC20(erc20contracts[i]).transfer(to, balance);
         }
     }
@@ -42,7 +50,11 @@ contract RecoveryContract {
         emit ActiveRecovery(address(this), recipient, block.timestamp);
     }
 
-    event ActiveRecovery(address contractAddress, address recipient, uint256 activationTime);
+    event ActiveRecovery(
+        address contractAddress,
+        address recipient,
+        uint256 activationTime
+    );
 }
 
 contract GatewayContract {
@@ -62,9 +74,8 @@ contract GatewayContract {
     ) external {
         // Construct the withdrawal message's payload.
         uint256[] memory payload = new uint256[](2);
-        payload[0] = MESSAGE_APPROVE;
-        payload[1] = userAddress;
-        payload[2] = blocks;
+        payload[0] = userAddress;
+        payload[1] = blocks;
 
         // L2StorageProverAddress is passed in as an input but we should eventually hardcode it into the contract
         starknetCore.consumeMessageFromL2(L2StorageProverAddress, payload);
@@ -74,12 +85,29 @@ contract GatewayContract {
         RecoveryContract(_recoveryContractAddress).activateRecovery(blocks);
     }
 
-    function deployRecoveryContract(address recipient, uint256 minBlocks) external {
-        require(eoaToRecoveryContract[msg.sender] == address(0x0), "Recovery contract exists");
-        address _recoveryContractAddress = address(new RecoveryContract(recipient, minBlocks, address(this)));
+    function deployRecoveryContract(address recipient, uint256 minBlocks)
+        external
+    {
+        require(
+            eoaToRecoveryContract[msg.sender] == address(0x0),
+            "Recovery contract exists"
+        );
+        address _recoveryContractAddress = address(
+            new RecoveryContract(recipient, minBlocks, address(this))
+        );
         eoaToRecoveryContract[msg.sender] = _recoveryContractAddress;
-        emit NewRecoveryContract(msg.sender, _recoveryContractAddress, block.timestamp, minBlocks);
+        emit NewRecoveryContract(
+            msg.sender,
+            _recoveryContractAddress,
+            block.timestamp,
+            minBlocks
+        );
     }
 
-    event NewRecoveryContract(address EOA, address recoveryContract, uint256 creationDate, uint256 minBlocks);
+    event NewRecoveryContract(
+        address EOA,
+        address recoveryContract,
+        uint256 creationDate,
+        uint256 minBlocks
+    );
 }

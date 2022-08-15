@@ -2,7 +2,7 @@
 
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.alloc import alloc
-from starkware.cairo.common.math import assert_lt_felt
+from starkware.cairo.common.math import assert_lt_felt, assert_le
 from starkware.starknet.common.messages import send_message_to_l1
 
 ## INTERFACES
@@ -43,7 +43,7 @@ end
 ## EVENTS
 
 @event
-func log_notify_L1_contract(user_address : felt):
+func log_notify_L1_contract(user_address : felt, block_diff: felt):
 end
 
 @event
@@ -94,22 +94,27 @@ end
 
 
 # Checks if account balance is unchanged, and if so, notifies L1 recovery contract
+# block_end must be within 256 blocks (~1 hour) of the latest block
+# block_end - block_start must be greater than the minimum block duration as specified in the L1 recovery contract
 @external
 func prove_balance_unchanged{
     syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr
-}(user_address : felt) -> (bool : felt):
+}(user_address : felt, block_start: felt, block_end: felt) -> (bool : felt):
     alloc_locals
-    const BLOCK_HISTORY = 40  # Number of blocks to look back - currently hard-coded but can be updated to be user input
 
-    let (block_end) = get_latest_eth_block()
-    let block_start = block_end - 40
+    let (latest_block) = get_latest_eth_block()
+    let threshold = latest_block - 256
+
+    assert_le(threshold, block_end)
+    assert_le(block_start, block_end)
+
+    let block_diff = block_end - block_start
     let (nonce_start) = get_nonce(address=user_address, block=block_start)
     let (nonce_end) = get_nonce(address=user_address, block=block_end)
-
     let (equals) = compare(a=nonce_start, b=nonce_end)
-
+    
     if equals == 1:
-        notify_L1_recovery_contract(user_address)
+        notify_L1_recovery_contract(user_address, block_diff)
         return (1)
     end
 
@@ -155,19 +160,16 @@ end
 
 
 # Notify Ethereum recovery contract
-# Temporarily set as external function for testing purposes
 func notify_L1_recovery_contract{
     syscall_ptr : felt*,
     pedersen_ptr : HashBuiltin*,
     range_check_ptr,
-}(user_address: felt):
-    const MESSAGE_APPROVE = 1
-
+}(user_address: felt, block_diff: felt):
     let (gateway_addr) = L1_gateway_address.read()
 
     let (message_payload : felt*) = alloc()
-    assert message_payload[0] = MESSAGE_APPROVE
-    assert message_payload[1] = user_address
+    assert message_payload[0] = user_address
+    assert message_payload[1] = block_diff
 
     send_message_to_l1(
         to_address=gateway_addr,
@@ -175,7 +177,7 @@ func notify_L1_recovery_contract{
         payload=message_payload,
     )
 
-    log_notify_L1_contract.emit(user_address)
+    log_notify_L1_contract.emit(user_address, block_diff)
 
     return ()
 end
