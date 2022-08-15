@@ -148,8 +148,8 @@
       ]
     },
     "/Users/parkyeung/Documents/Programming/recovery/contracts/ethereum/GatewayContract.sol": {
-      "lastModificationDate": 1660559360707,
-      "contentHash": "2b03a53138151b327a5704602d49e2c6",
+      "lastModificationDate": 1660586600530,
+      "contentHash": "4d428f42457c8fb630b9111e6e6c0509",
       "sourceName": "contracts/ethereum/GatewayContract.sol",
       "solcConfig": {
         "version": "0.8.9",
