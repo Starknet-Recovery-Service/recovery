@@ -15,7 +15,9 @@ interface IStarknetCore {
 contract RecoveryContract {
     address public recipient;
     address public gatewayContract;
+    address public owner;
     uint256 public minBlocks;
+    uint256 public l2StorageProverAddress;
     bool public isActive;
 
     constructor(
@@ -27,6 +29,12 @@ contract RecoveryContract {
         minBlocks = _minBlocks;
         gatewayContract = _gatewayContract;
         isActive = false;
+        owner = msg.sender;
+    }
+
+    function addProverAddress(uint256 _l2StorageProverAddress) external {
+        require(msg.sender == owner, "Only owner");
+        l2StorageProverAddress = _l2StorageProverAddress;
     }
 
     function claimAssets(address[] calldata erc20contracts, address to)
@@ -61,7 +69,6 @@ contract GatewayContract {
     // The StarkNet core contract
     IStarknetCore starknetCore;
     mapping(address => address) public eoaToRecoveryContract;
-    uint256 constant MESSAGE_APPROVE = 1;
 
     constructor(IStarknetCore _starknetCore) {
         starknetCore = _starknetCore;
@@ -69,16 +76,14 @@ contract GatewayContract {
 
     function receiveFromStorageProver(
         uint256 userAddress,
-        uint256 blocks,
-        uint256 L2StorageProverAddress
+        uint256 blocks
     ) external {
         // Construct the withdrawal message's payload.
         uint256[] memory payload = new uint256[](2);
         payload[0] = userAddress;
         payload[1] = blocks;
 
-        // L2StorageProverAddress is passed in as an input but we should eventually hardcode it into the contract
-        starknetCore.consumeMessageFromL2(L2StorageProverAddress, payload);
+        starknetCore.consumeMessageFromL2(l2StorageProverAddress, payload);
 
         address conversion = address(uint160(userAddress));
         address _recoveryContractAddress = eoaToRecoveryContract[conversion];
