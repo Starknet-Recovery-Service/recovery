@@ -38,10 +38,13 @@ contract RecoveryContract {
         require(msg.sender == recipient, "Only recipient");
         require(isActive == true, "Not active");
         for (uint256 i = 0; i < erc20contracts.length; i++) {
-            uint256 balance = IERC20(erc20contracts[i]).balanceOf(
-                EOA
+            address erc20contract = erc20contracts[i];
+            uint256 balance = IERC20(erc20contract).allowance(
+                EOA, address(this)
             );
-            IERC20(erc20contracts[i]).transferFrom(EOA, to, balance);
+            if (balance > 0) {
+                IERC20(erc20contract).transferFrom(EOA, to, balance);
+            }
         }
     }
 
