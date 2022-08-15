@@ -4,6 +4,10 @@
             {
                 "name": "user_address",
                 "type": "felt"
+            },
+            {
+                "name": "block_diff",
+                "type": "felt"
             }
         ],
         "keys": [],
@@ -88,6 +92,14 @@
         "inputs": [
             {
                 "name": "user_address",
+                "type": "felt"
+            },
+            {
+                "name": "block_start",
+                "type": "felt"
+            },
+            {
+                "name": "block_end",
                 "type": "felt"
             }
         ],

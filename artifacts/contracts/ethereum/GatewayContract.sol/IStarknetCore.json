@@ -1,7 +1,7 @@
 {
   "_format": "hh-sol-artifact-1",
   "contractName": "IStarknetCore",
-  "sourceName": "contracts/ethereum/TestContracts/TestGatewayContract.sol",
+  "sourceName": "contracts/ethereum/GatewayContract.sol",
   "abi": [
     {
       "inputs": [

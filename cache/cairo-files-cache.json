@@ -1,6 +1,6 @@
 {
  "/Users/parkyeung/Documents/Programming/recovery/contracts/starknet/StorageProver.cairo": {
-  "contentHash": "5fa376a7d85d95a96b8d2231246bb42ae07ce92632388343259f083a4bc03d9c",
+  "contentHash": "abccd70ab192bd7d65873c33cfcc9395803235caa84f2b4fa359d275ccf6542b",
   "outputPath": "/Users/parkyeung/Documents/Programming/recovery/starknet-artifacts/contracts/starknet/StorageProver.cairo/StorageProver.json",
   "abiPath": "/Users/parkyeung/Documents/Programming/recovery/starknet-artifacts/contracts/starknet/StorageProver.cairo/StorageProver_abi.json"
  }
