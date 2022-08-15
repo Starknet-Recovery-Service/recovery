@@ -14,6 +14,7 @@ interface IStarknetCore {
 
 contract RecoveryContract {
     address public recipient;
+    address public EOA;
     address public gatewayContract;
     uint256 public minBlocks;
     bool public isActive;
@@ -21,9 +22,11 @@ contract RecoveryContract {
     constructor(
         address _recipient,
         uint256 _minBlocks,
-        address _gatewayContract
+        address _gatewayContract,
+        address _EOA
     ) {
         recipient = _recipient;
+        EOA = _EOA;
         minBlocks = _minBlocks;
         gatewayContract = _gatewayContract;
         isActive = false;
@@ -36,7 +39,7 @@ contract RecoveryContract {
         require(isActive == true, "Not active");
         for (uint256 i = 0; i < erc20contracts.length; i++) {
             uint256 balance = IERC20(erc20contracts[i]).balanceOf(
-                address(this)
+                EOA
             );
             IERC20(erc20contracts[i]).transfer(to, balance);
         }
@@ -101,7 +104,7 @@ contract GatewayContract {
             "Recovery contract exists"
         );
         address _recoveryContractAddress = address(
-            new RecoveryContract(recipient, minBlocks, address(this))
+            new RecoveryContract(recipient, minBlocks, address(this), msg.sender)
         );
         eoaToRecoveryContract[msg.sender] = _recoveryContractAddress;
         emit NewRecoveryContract(
