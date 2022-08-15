@@ -105,8 +105,13 @@ func prove_balance_unchanged{
     let (latest_block) = get_latest_eth_block()
     let threshold = latest_block - 256
 
-    assert_le(threshold, block_end)
-    assert_le(block_start, block_end)
+    with_attr error_message("block_end must be within 256 blocks of the latest block"):
+        assert_le(threshold, block_end)
+    end
+
+    with_attr error_message("block_end must be greater than block_start"):
+        assert_le(block_start, block_end)
+    end
 
     let block_diff = block_end - block_start
     let (nonce_start) = get_nonce(address=user_address, block=block_start)
