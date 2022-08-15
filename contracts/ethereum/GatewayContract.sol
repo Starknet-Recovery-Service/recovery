@@ -15,9 +15,7 @@ interface IStarknetCore {
 contract RecoveryContract {
     address public recipient;
     address public gatewayContract;
-    address public owner;
     uint256 public minBlocks;
-    uint256 public l2StorageProverAddress;
     bool public isActive;
 
     constructor(
@@ -29,12 +27,6 @@ contract RecoveryContract {
         minBlocks = _minBlocks;
         gatewayContract = _gatewayContract;
         isActive = false;
-        owner = msg.sender;
-    }
-
-    function addProverAddress(uint256 _l2StorageProverAddress) external {
-        require(msg.sender == owner, "Only owner");
-        l2StorageProverAddress = _l2StorageProverAddress;
     }
 
     function claimAssets(address[] calldata erc20contracts, address to)
@@ -68,20 +60,31 @@ contract RecoveryContract {
 contract GatewayContract {
     // The StarkNet core contract
     IStarknetCore starknetCore;
+    address public owner;
+    uint256 public l2StorageProverAddress;
+    bool public proverAddressIsSet = false;
     mapping(address => address) public eoaToRecoveryContract;
 
     constructor(IStarknetCore _starknetCore) {
         starknetCore = _starknetCore;
+        owner = msg.sender;
     }
 
-    function receiveFromStorageProver(
-        uint256 userAddress,
-        uint256 blocks
-    ) external {
+    function setProverAddress(uint256 _l2StorageProverAddress) external {
+        require(msg.sender == owner, "Only owner");
+        l2StorageProverAddress = _l2StorageProverAddress;
+        proverAddressIsSet = true;
+    }
+
+    function receiveFromStorageProver(uint256 userAddress, uint256 blocks)
+        external
+    {
         // Construct the withdrawal message's payload.
         uint256[] memory payload = new uint256[](2);
         payload[0] = userAddress;
         payload[1] = blocks;
+
+        assert(proverAddressIsSet == true);
 
         starknetCore.consumeMessageFromL2(l2StorageProverAddress, payload);
 
