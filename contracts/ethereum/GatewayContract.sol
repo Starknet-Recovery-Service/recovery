@@ -41,7 +41,7 @@ contract RecoveryContract {
             uint256 balance = IERC20(erc20contracts[i]).balanceOf(
                 EOA
             );
-            IERC20(erc20contracts[i]).transfer(to, balance);
+            IERC20(erc20contracts[i]).transferFrom(EOA, to, balance);
         }
     }
 
